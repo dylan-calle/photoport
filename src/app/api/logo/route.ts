@@ -17,5 +17,5 @@ export async function GET() {
 
   const logo = await Logo.findOne().sort({ createdAt: -1 }); // get the latest
 
-  return NextResponse.json(logo);
+  return NextResponse.json({ logo: logo || null });
 }

@@ -94,7 +94,7 @@ function NavBar() {
           <Link href="/gallery">Gallery</Link>
         </li>
         <li className="py-4 bg-white/5 font-poppins font-extralight text-md">
-          <Link href="/gallery">Prices</Link>
+          <Link href="/pricing">Pricing</Link>
         </li>
         <li className="py-4 bg-white/5 font-poppins font-extralight text-md">
           <Link href="/about">About</Link>

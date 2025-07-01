@@ -1,4 +1,6 @@
 import type { Metadata } from "next";
+import NavBar from "./navbar";
+import Footer from "./footer";
 import { Geist, Geist_Mono, Poppins, Inter } from "next/font/google";
 import "./globals.css";
 
@@ -35,9 +37,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" className="dark">
       <body className={`${geistSans.variable} ${geistMono.variable} ${inter.variable} ${poppins.variable} antialiased`}>
+        <NavBar />
         {children}
+        <Footer />
       </body>
     </html>
   );

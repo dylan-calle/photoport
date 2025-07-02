@@ -53,8 +53,8 @@ function NavBar() {
             </Link>
           </li>
           <li className="py-4">
-            <Link className="py-2 my-2 px-5 hover:bg-white/10 rounded-md hover:text-strong" href="/prices">
-              Prices
+            <Link className="py-2 my-2 px-5 hover:bg-white/10 rounded-md hover:text-strong" href="/pricing">
+              Pricing
             </Link>
           </li>
           <li className="py-4">

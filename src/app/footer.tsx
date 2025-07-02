@@ -7,14 +7,14 @@ export default function Footer() {
           <h3 className="text-2xl text-accent font-light font-inter">Dylan Calle</h3>
           <p className="text-sm mt-3 text-gray-400">Capturing moments, those that endure forever.</p>
           <p className="mt-4 text-gray-500 text-sm">
-            &copy; {new Date().getFullYear()} Dylan Calle. Todos los derechos reservados.
+            &copy; {new Date().getFullYear()} Dylan Calle. All the rights reserverd.
           </p>
         </div>
 
         <div className="flex sm:justify-end items-start sm:items-center flex-col sm:flex-row gap-6">
           <div className="flex gap-4 text-xl">
             <a
-              href="https://instagram.com"
+              href="https://instagram.com/dylancallecossio"
               target="_blank"
               rel="noopener noreferrer"
               className="hover:text-accent transition-colors"
@@ -24,7 +24,7 @@ export default function Footer() {
               </svg>
             </a>
             <a
-              href="https://facebook.com"
+              href="https://facebook.com/dylan.calle.cossio"
               target="_blank"
               rel="noopener noreferrer"
               className="hover:text-accent transition-colors"
@@ -34,7 +34,11 @@ export default function Footer() {
               </svg>
             </a>
 
-            <a href="mailto:contacto@tunombre.com" className="hover:text-accent transition-colors">
+            <a
+              href="https://mail.google.com/mail/?view=cm&fs=1&to=dylan.calle.dev@gmail.com&su=Photos&body=BODY"
+              target="_blank"
+              className="hover:text-accent transition-colors"
+            >
               <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24" className="w-6 h-6">
                 <path d="M0 3v18h24V3H0zm21.518 2L12 12.713 2.482 5h19.036zM2 19V7.183l10 8.104 10-8.104V19H2z" />
               </svg>

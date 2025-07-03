@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
-import NavBar from "./navbar";
-import Footer from "./footer";
+import NavBar from "./(home)/navbar";
+import Footer from "./(home)/footer";
 import { Geist, Geist_Mono, Poppins, Inter } from "next/font/google";
 import "./globals.css";
 

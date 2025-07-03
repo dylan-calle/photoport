@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
-import NavBar from "./(home)/navbar";
-import Footer from "./(home)/footer";
+
 import { Geist, Geist_Mono, Poppins, Inter } from "next/font/google";
 import "./globals.css";
 
@@ -39,9 +38,7 @@ export default function RootLayout({
   return (
     <html lang="en" className="dark">
       <body className={`${geistSans.variable} ${geistMono.variable} ${inter.variable} ${poppins.variable} antialiased`}>
-        <NavBar />
         {children}
-        <Footer />
       </body>
     </html>
   );

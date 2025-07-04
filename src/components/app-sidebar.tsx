@@ -19,11 +19,6 @@ import {
 } from "@/components/ui/sidebar";
 
 const data = {
-  user: {
-    name: "shadcn",
-    email: "m@example.com",
-    avatar: "/avatars/shadcn.jpg",
-  },
   navMain: [
     {
       title: "Dashboard",
@@ -53,9 +48,32 @@ const data = {
   ],
 };
 
+type User = {
+  id: string;
+  name: string;
+  user: string;
+  avatar: string;
+  email: string;
+};
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   const [logoUrl, setLogoUrl] = useState<string>("");
+  const [user, setUser] = useState<User>({ id: "", name: "", user: "", avatar: "", email: "" });
   useEffect(() => {
+    const fetchUser = async () => {
+      try {
+        const user = await axios.get("/api/users/verify-token", {
+          withCredentials: true,
+        });
+        setUser({
+          ...user.data.data,
+          avatar: user.data.data.avatar
+            ? user.data.data.avatar
+            : "https://scontent.fcbb3-1.fna.fbcdn.net/v/t1.6435-9/142361511_829750594254181_8096284960001906280_n.jpg?_nc_cat=110&ccb=1-7&_nc_sid=a5f93a&_nc_ohc=x6EgCsfl1iQQ7kNvwEyUuM3&_nc_oc=Adk8B1wg7byBEFa8vYJvyC70L4YneutY0wJwQzTQKC_df6-ccMGAHMW94yTuNIXDCNzFH3n6ZVvtQWfzZo_TBLgv&_nc_zt=23&_nc_ht=scontent.fcbb3-1.fna&_nc_gid=yJLRAxYY1u-eCpViSRBMug&oh=00_AfQcUfhVlTr33VuZC1etuK6yLuoX70ic6IUOxCDO_gW04w&oe=688FD76B",
+        });
+      } catch (err) {
+        console.error(err);
+      }
+    };
     const fetchLogo = async () => {
       try {
         const logo = await axios.get("/api/logo");
@@ -65,6 +83,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         console.error(err);
       }
     };
+    fetchUser();
     fetchLogo();
   }, []);
   return (
@@ -88,7 +107,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         <NavMain items={data.navMain} />
       </SidebarContent>
       <SidebarFooter>
-        <NavUser user={data.user} />
+        <NavUser user={user} />
       </SidebarFooter>
     </Sidebar>
   );

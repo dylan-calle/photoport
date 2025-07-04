@@ -6,14 +6,14 @@ const JWT_SECRET = process.env.JWT_SECRET!;
 
 //code from https://nextjs.org/docs/app/guides/authentication#authorization with own adjustments
 // 1. Specify protected and public routes
-const protectedRoutes = ["/admin/dashboard"];
-const publicRoutes = ["/pricing", "/gallery", "/", "/admin"];
+const protectedRoutes = ["/admin/dashboard", "/admin/pricing", "/admin/gallery", "/admin/home", "/admin/settings"];
+//const publicRoutes = ["/pricing", "/gallery", "/", "/admin"];
 
 export default async function middleware(req: NextRequest) {
   // 2. Check if the current route is protected or public
   const path = req.nextUrl.pathname;
   const isProtectedRoute = protectedRoutes.includes(path);
-  const isPublicRoute = publicRoutes.includes(path);
+  //const isPublicRoute = publicRoutes.includes(path);
   // 3. Decrypt the session from the cookie
   const token = req.cookies.get("accessToken")?.value;
   let session: any = null;
@@ -34,7 +34,7 @@ export default async function middleware(req: NextRequest) {
   }
 
   // 5. Redirect to /dashboard if the user is authenticated
-  if (isPublicRoute && session?.id && !path.startsWith("/admin/")) {
+  if (path === "/admin" && session?.id) {
     return NextResponse.redirect(new URL("/admin/dashboard", req.url));
   }
 

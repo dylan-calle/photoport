@@ -46,7 +46,7 @@ export default async function Page() {
                   (image, index) =>
                     item.type === image.type && (
                       <div key={index} className="break-inside-avoid mb-6">
-                        <div className="relative w-full h-[150px] md:h-[150px] lg:h-[10rem] xl:h-[14rem] rounded shadow-md">
+                        <div className="relative w-full h-[10rem] md:h-[10rem] lg:h-[10rem] 2xl:h-[15rem] rounded shadow-md">
                           <button type="button" className="hover:cursor-pointer">
                             <Image
                               src={image.main_photo}

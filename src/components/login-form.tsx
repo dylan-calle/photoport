@@ -108,6 +108,7 @@ export function LoginForm({ className, ...props }: React.ComponentProps<"div">) 
               src="https://res.cloudinary.com/dqmu0iz24/image/upload/v1751505868/pexels-sulimansallehi-1540977_1_qjftbq.jpg"
               alt="ssss"
               width={800}
+              priority
               height={800}
               className="absolute top-0 left-0 w-full h-full object-cover rounded shadow-black shadow-lg"
             />

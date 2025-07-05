@@ -28,6 +28,7 @@ export default async function Page() {
         <Image
           src={homeImage[0].url}
           alt="Main photo"
+          priority
           width={1000}
           height={1000}
           className="w-full object-contain sm:opacity-70"

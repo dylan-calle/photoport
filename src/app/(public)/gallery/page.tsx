@@ -1,7 +1,8 @@
 import { getGalleryPhotos } from "@/lib/galleryPhotos-service";
 import { getGalleryTypes } from "@/lib/galleryTypes-service";
+import Link from "next/link";
 import Image from "next/image";
-import { Fragment } from "react";
+
 export const metadata = {
   title: "Photographer | Dylan's Portfolio",
   description: "Discover my best photographs — portraits, landscapes and more.",
@@ -22,7 +23,6 @@ type GalleryTypes = {
 
 export default async function Page() {
   const galleryPhotos = (await getGalleryPhotos("")) as GalleryPhotos[];
-  console.log("fa", galleryPhotos);
   const galleryTypes = (await getGalleryTypes()) as GalleryTypes[];
   return (
     <>
@@ -47,7 +47,7 @@ export default async function Page() {
                     item.type === image.type && (
                       <div key={index} className="break-inside-avoid mb-6">
                         <div className="relative w-full h-[10rem] md:h-[10rem] lg:h-[10rem] 2xl:h-[15rem] rounded shadow-md">
-                          <button type="button" className="hover:cursor-pointer">
+                          <Link href={`/gallery/${image.code_title}`} className="hover:cursor-pointer">
                             <Image
                               src={image.main_photo}
                               alt={image.title}
@@ -55,8 +55,8 @@ export default async function Page() {
                               height={800}
                               className="absolute top-0 left-0 w-full h-full object-cover rounded shadow-black shadow-lg z-30 hover:scale-105 transition duration-150"
                             />
-                          </button>
-                          <button type="button" className="hover:cursor-pointer">
+                          </Link>
+                          <Link href={`/gallery/${image.code_title}`} className="hover:cursor-pointer">
                             {!!image.s_photo && (
                               <Image
                                 src={image.s_photo}
@@ -66,8 +66,8 @@ export default async function Page() {
                                 className="absolute sm:top-3 top-4 sm:left-3 w-full h-full object-cover rounded shadow-black shadow-md z-20 hover:scale-105 transition duration-150"
                               />
                             )}
-                          </button>
-                          <button type="button" className="hover:cursor-pointer">
+                          </Link>
+                          <Link href={`/gallery/${image.code_title}`} className="hover:cursor-pointer">
                             {!!image.t_photo && (
                               <Image
                                 src={image.t_photo}
@@ -77,7 +77,7 @@ export default async function Page() {
                                 className="absolute sm:top-6 top-8 sm:left-6 w-full h-full object-cover rounded shadow-lg z-10 hover:scale-105 transition duration-150"
                               />
                             )}
-                          </button>
+                          </Link>
                         </div>
                         <span className="mt-8 block text-center font-inter">{image.title}</span>
                       </div>

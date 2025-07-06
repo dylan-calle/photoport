@@ -13,7 +13,13 @@ export async function POST(req: NextRequest) {
 
   await connectDB();
 
-  const code = title.toLowerCase().replace(/\s+/g, "_") + "_" + uuidv4().slice(0, 3);
+  const code =
+    title
+      .toLowerCase()
+      .replace(/[^a-z0-9 ]/g, "")
+      .replace(/\s+/g, "_") +
+    "_" +
+    uuidv4().slice(0, 3);
   const uploadedPhotos = [];
 
   for (let i = 0; i < files.length; i++) {

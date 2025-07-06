@@ -3,8 +3,9 @@ import { IconPencil, IconTrash } from "@tabler/icons-react";
 import { useState, useEffect } from "react";
 import axios from "axios";
 import Image from "next/image";
-import { DialogCloseButton } from "./newColection";
+import { DialogCloseButton } from "./new-collection";
 import ScreenSpinner from "@/components/screen-spiner";
+import { AlertDialogGallery } from "./alert-dialog";
 
 type GalleryPhotos = {
   type: string;
@@ -26,6 +27,9 @@ export default function Page() {
   const [needFetchData, setNeedFetchData] = useState<boolean>(false);
   const [isSpinnerOpen, setIsSpinnerOpen] = useState<boolean>(false);
 
+  const [codeToDelete, setCodeToDelete] = useState<string>("");
+  const [openDelete, setOpenDelete] = useState<boolean>(false);
+
   const fetchData = async () => {
     setIsSpinnerOpen(true);
     try {
@@ -41,11 +45,11 @@ export default function Page() {
       setIsSpinnerOpen(false);
     }
   };
+
   useEffect(() => {
     fetchData();
   }, [needFetchData]);
 
-  // const handleNewCollection = () => {};
   return (
     <>
       <ScreenSpinner isOpen={isSpinnerOpen} />
@@ -54,8 +58,13 @@ export default function Page() {
           <div className="flex flex-col gap-4 py-4 md:gap-6 md:py-6">
             <div className="px-4 lg:px-6 flex gap-x-5 items-center">
               <h2 className="font-poppins text-2xl">Manage Collections</h2>
-
               <DialogCloseButton fetchImages={setNeedFetchData} />
+              <AlertDialogGallery
+                fetchImages={setNeedFetchData}
+                isOn={openDelete}
+                setIsOn={setOpenDelete}
+                code_title={codeToDelete}
+              />
             </div>
             <section className="w-full px-4 sm:px-6">
               {galleryTypes.map((item, index) => (
@@ -74,7 +83,13 @@ export default function Page() {
                                 <button type="button">
                                   <IconPencil className="hover:cursor-pointer hover:bg-white/30 p-1 rounded-sm size-8" />
                                 </button>
-                                <button type="button">
+                                <button
+                                  type="button"
+                                  onClick={() => {
+                                    setCodeToDelete(image.code_title);
+                                    setOpenDelete(true);
+                                  }}
+                                >
                                   <IconTrash className="hover:cursor-pointer hover:bg-white/30 p-1 hover:text-red-400 rounded-sm size-8" />
                                 </button>
                               </div>

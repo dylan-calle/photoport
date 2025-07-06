@@ -5,7 +5,11 @@ import { connectDB } from "@/lib/mongodb";
 import { v2 as cloudinary } from "cloudinary";
 
 type Params = Promise<{ code: string }>;
-
+type Photo = {
+  url: string;
+  order: number;
+  public_id: string;
+};
 export async function GET(req: NextRequest, segmentData: { params: Params }) {
   await connectDB();
   const params = await segmentData.params;
@@ -41,6 +45,52 @@ export async function DELETE(req: NextRequest, segmentData: { params: Params }) 
   await GalleryPhotos.findOneAndDelete({ code_title: code });
 
   return NextResponse.json({ success: true, message: "Collection deleted." }, { status: 200 });
+}
+export async function POST(req: NextRequest, segmentData: { params: Params }) {
+  const params = await segmentData.params;
+  const code = params.code;
+  const formData = await req.formData();
+  const files = formData.getAll("photos") as File[];
+
+  if (!files || files.length === 0) {
+    return NextResponse.json({ error: "No photos provided" }, { status: 400 });
+  }
+
+  await connectDB();
+
+  const gallery = await Gallery.findOne({ code });
+  if (!gallery) {
+    return NextResponse.json({ error: "Gallery not found" }, { status: 404 });
+  }
+
+  // Get max order from existing photos
+  const maxOrder = gallery.photos.reduce((max: number, photo: Photo) => Math.max(max, photo.order || 0), 0);
+
+  const uploadedPhotos = [];
+
+  for (let i = 0; i < files.length; i++) {
+    const file = files[i];
+    const arrayBuffer = await file.arrayBuffer();
+    const buffer = Buffer.from(arrayBuffer);
+    const base64String = `data:${file.type};base64,${buffer.toString("base64")}`;
+
+    const result = await cloudinary.uploader.upload(base64String, {
+      folder: `gallery/${code}`,
+    });
+
+    uploadedPhotos.push({
+      public_id: result.public_id,
+      url: result.secure_url,
+      caption: `Photo ${maxOrder + i + 1}`,
+      order: maxOrder + i + 1,
+    });
+  }
+
+  // Append new photos to the gallery
+  gallery.photos.push(...uploadedPhotos);
+  await gallery.save();
+
+  return NextResponse.json({ success: true, gallery });
 }
 export async function PATCH(req: NextRequest, segmentData: { params: Params }) {
   await connectDB();

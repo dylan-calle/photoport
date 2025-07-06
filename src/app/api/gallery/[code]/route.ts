@@ -42,3 +42,27 @@ export async function DELETE(req: NextRequest, segmentData: { params: Params }) 
 
   return NextResponse.json({ success: true, message: "Collection deleted." }, { status: 200 });
 }
+export async function PATCH(req: NextRequest, segmentData: { params: Params }) {
+  await connectDB();
+  const params = await segmentData.params;
+  const code = params.code;
+
+  const body = await req.json();
+  const { title, type } = body;
+
+  const updated = await Gallery.findOneAndUpdate({ code }, { title, type }, { new: true });
+  const updated2 = await GalleryPhotos.findOneAndUpdate({ code_title: code }, { title, type }, { new: true });
+
+  if (!updated) {
+    return NextResponse.json({ error: "Gallery not found" }, { status: 404 });
+  }
+  if (!updated2) {
+    return NextResponse.json({ error: "Gallery not found" }, { status: 404 });
+  }
+
+  return NextResponse.json({
+    success: true,
+    message: "Gallery data updated successfully",
+    gallery: updated,
+  });
+}

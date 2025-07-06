@@ -36,7 +36,7 @@ export default async function Page() {
       )}
       <div className="sm:-translate-y-30 -translate-y-5 absolute w-full sm:h-32 h-5 bg-gradient-to-b to-black/100 from-transparent z-10" />
       <div className="h-[27rem] sm:h-auto sm:absolute sm:top-[25rem] sm:w-full z-15">
-        <p className="bg-gradient-to-t sm:from-black/25 sm:to-transparent mt-10 sm:px-6 sm:py-2 sm:text-center sm:w-full sm:font-medium sm:absolute font-inter font-light text-center sm:text-7xl text-4xl text-accent sm:block sticky top-[30vh]">
+        <p className=" mt-10 sm:px-6 sm:py-2 sm:text-center sm:w-full sm:font-medium sm:absolute font-inter font-light text-center sm:text-7xl text-4xl text-accent sm:block sticky top-[30vh]">
           More than images, <br />
           <span className="font-bold">memories</span> you can touch ✨
         </p>

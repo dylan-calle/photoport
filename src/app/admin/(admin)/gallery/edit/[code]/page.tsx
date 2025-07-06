@@ -5,9 +5,10 @@ import { useEffect, use, useState, ChangeEvent } from "react";
 import { Combobox } from "./combox";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
-import { IconTrash, IconPlus } from "@tabler/icons-react";
+import { IconTrash } from "@tabler/icons-react";
 import ScreenSpinner from "@/components/screen-spiner";
 import SucessDialog from "@/components/sucess-dialog";
+import { AddMorePhotos } from "./add-more-photos";
 type Params = Promise<{
   code: string;
 }>;
@@ -71,6 +72,19 @@ export default function Page(props: { params: Params }) {
       setIsLoading(false);
     }
   };
+  const handleDeletePhoto = async (publicId: string) => {
+    setIsLoading(true);
+    try {
+      await axios.post(`/api/gallery/${params.code}/photo`, { public_id: publicId });
+      setMessageDialog("Photo deleted succesfully");
+      setIsMessageOpen(true);
+      fetchGalleryByCode();
+    } catch (err) {
+      console.error(err);
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
   useEffect(() => {
     fetchGalleryByCode();
@@ -102,21 +116,25 @@ export default function Page(props: { params: Params }) {
       </div>
       <div className="border-b sm:border-b-2  mb-5 border-white/60 mx-8"></div>
       <div className="flex justify-between flex-row-reverse items-end mb-4">
-        <Button className="hover:cursor-pointer">
-          <IconPlus />
-          Add Photos
-        </Button>
+        <AddMorePhotos fetchImages={fetchGalleryByCode} code={params.code} />
         <span className="font-poppins text-2xl font-semibold">Photos ({collection?.photos.length})</span>
       </div>
 
       <div className="columns-1 sm:columns-1 md:columns-2 lg:columns-3 gap-4 space-y-4">
         {collection?.photos.map((image, index) => (
           <div key={image.public_id + index} className="relative break-inside-avoid overflow-hidden rounded shadow-md">
-            <div className="flex hover:opacity-100 opacity-0 justify-center items-center gap-x-5 absolute top-0 left-0 w-full h-full object-cover rounded bg-black/70 shadow-lg z-40 hover:scale-105 transition duration-150">
-              <button type="button" onClick={() => {}}>
-                <IconTrash className="hover:cursor-pointer hover:bg-white/30 p-1 hover:text-red-400 rounded-sm size-8" />
-              </button>
-            </div>
+            {index > 0 && (
+              <div className="flex hover:opacity-100 opacity-0 justify-center items-center gap-x-5 absolute top-0 left-0 w-full h-full object-cover rounded bg-black/70 shadow-lg z-40 hover:scale-105 transition duration-150">
+                <button
+                  type="button"
+                  onClick={() => {
+                    handleDeletePhoto(image.public_id);
+                  }}
+                >
+                  <IconTrash className="hover:cursor-pointer hover:bg-white/30 p-1 hover:text-red-400 rounded-sm size-8" />
+                </button>
+              </div>
+            )}
             <Image
               src={image.url}
               alt={image.caption}

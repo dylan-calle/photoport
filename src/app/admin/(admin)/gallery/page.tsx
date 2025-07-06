@@ -3,6 +3,7 @@ import { IconPencil, IconTrash } from "@tabler/icons-react";
 import { useState, useEffect } from "react";
 import axios from "axios";
 import Image from "next/image";
+import Link from "next/link";
 import { DialogCloseButton } from "./new-collection";
 import ScreenSpinner from "@/components/screen-spiner";
 import { AlertDialogGallery } from "./alert-dialog";
@@ -80,9 +81,9 @@ export default function Page() {
                           <div key={index} className="break-inside-avoid mb-6">
                             <div className="relative  w-full h-[10rem] md:h-[10rem] lg:h-[10rem] 2xl:h-[15rem] rounded shadow-md">
                               <div className="flex hover:opacity-100 opacity-0 justify-center items-center gap-x-5 absolute top-0 left-0 w-full h-full object-cover rounded bg-black/70 shadow-lg z-40 hover:scale-105 transition duration-150">
-                                <button type="button">
+                                <Link href={`/admin/gallery/edit/${image.code_title}`}>
                                   <IconPencil className="hover:cursor-pointer hover:bg-white/30 p-1 rounded-sm size-8" />
-                                </button>
+                                </Link>
                                 <button
                                   type="button"
                                   onClick={() => {

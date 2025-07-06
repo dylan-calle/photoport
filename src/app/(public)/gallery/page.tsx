@@ -57,22 +57,26 @@ export default async function Page() {
                             />
                           </button>
                           <button type="button" className="hover:cursor-pointer">
-                            <Image
-                              src={image.s_photo}
-                              alt={image.title + " 2"}
-                              width={800}
-                              height={800}
-                              className="absolute sm:top-3 top-4 sm:left-3 w-full h-full object-cover rounded shadow-black shadow-md z-20 hover:scale-105 transition duration-150"
-                            />
+                            {!!image.s_photo && (
+                              <Image
+                                src={image.s_photo}
+                                alt={image.title + " 2"}
+                                width={800}
+                                height={800}
+                                className="absolute sm:top-3 top-4 sm:left-3 w-full h-full object-cover rounded shadow-black shadow-md z-20 hover:scale-105 transition duration-150"
+                              />
+                            )}
                           </button>
                           <button type="button" className="hover:cursor-pointer">
-                            <Image
-                              src={image.t_photo}
-                              alt={image.title + " 3"}
-                              width={800}
-                              height={800}
-                              className="absolute sm:top-6 top-8 sm:left-6 w-full h-full object-cover rounded shadow-lg z-10 hover:scale-105 transition duration-150"
-                            />
+                            {!!image.t_photo && (
+                              <Image
+                                src={image.t_photo}
+                                alt={image.title + " 3"}
+                                width={800}
+                                height={800}
+                                className="absolute sm:top-6 top-8 sm:left-6 w-full h-full object-cover rounded shadow-lg z-10 hover:scale-105 transition duration-150"
+                              />
+                            )}
                           </button>
                         </div>
                         <span className="mt-8 block text-center font-inter">{image.title}</span>

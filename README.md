@@ -1,5 +1,21 @@
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+This project was thought for photographers who need to share their photos and also create plans for those who are interested.
 
+## Technologies and Libraries
+For this project was used
+[Frontend]
+1. Next JS
+2. Tailwind
+3. Shadcn Library
+4. Radix UI
+5. Axios
+6. Bcrypt
+[Backend]
+1. MongoDB
+2. Cloudinary
+3. React Router from Next JS
+[Deploy]
+1. Vercel
 ## Getting Started
 
 First, run the development server:

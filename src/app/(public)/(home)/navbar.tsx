@@ -25,7 +25,7 @@ function NavBar() {
     fetchLogo();
   }, []);
 
-  const [navbarOpen, setNavbarOpen] = useState<Boolean>(false);
+  const [navbarOpen, setNavbarOpen] = useState<boolean>(false);
   return (
     <nav className="w-full shadow  px-4 sm:px-7 py-4">
       <div className="flex items-center justify-between gap-2">
